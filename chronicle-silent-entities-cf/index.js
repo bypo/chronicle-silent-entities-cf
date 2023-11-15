@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// [START functions_hello_bigquery]
+// [START chronicleSilentEntities]
 // Import the Google Cloud client library
 const {BigQuery} = require('@google-cloud/bigquery');
 const bigquery = new BigQuery();
@@ -26,10 +26,9 @@ const functions = require('@google-cloud/functions-framework');
  * @param {Object} res Cloud Function response context.
  */
 functions.http('chronicleSilentEntities', async (req, res) => {
-  // Define the SQL query
-  // Queries the public Shakespeare dataset using named query parameter
+  // Define the SQL queries
   const sqlQuery1 = `
-      SELECT DISTINCT events__intermediary.hostname as gateway, FROM \`chronicle-nohait.datalake.events\` as events LEFT JOIN UNNEST(events.intermediary) AS events__intermediary
+      SELECT DISTINCT events__intermediary.hostname as gateway, FROM \`chronicle-ita.datalake.events\` as events LEFT JOIN UNNEST(events.intermediary) AS events__intermediary
       WHERE metadata.ingested_timestamp.seconds > @sec_late  ORDER BY gateway LIMIT @limit_count;`
   const sqlQuery2 = `
       SELECT principal.hostname FROM \`chronicle-ita.datalake.events\` WHERE metadata.ingested_timestamp.seconds > @sec_late LIMIT @limit_count;`
@@ -69,4 +68,4 @@ functions.http('chronicleSilentEntities', async (req, res) => {
   }
 
 });
-// [END functions_hello_bigquery]
+// [END chronicleSilentEntities]
