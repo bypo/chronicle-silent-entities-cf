@@ -1,0 +1,26 @@
+{
+  "name": "nodejs-chronicle-silent-entities-cf",
+  "version": "0.0.2",
+  "private": true,
+  "license": "Apache-2.0",
+  "author": "Oreste Dimaggio <orestedimaggio@google.com>",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/still-to-be-defined.git"
+  },
+  "engines": {
+    "node": ">=16.0.0"
+  },
+  "scripts": {
+    "test": "c8 mocha -p -j 2 test/*.test.js --timeout=20000 --exit"
+  },
+  "dependencies": {
+    "@google-cloud/bigquery": "^7.0.0",
+    "@google-cloud/functions-framework": "^3.1.0"
+  },
+  "devDependencies": {
+    "c8": "^8.0.0",
+    "mocha": "^10.0.0",
+    "supertest": "^6.0.0"
+  }
+}
