@@ -2,8 +2,9 @@
 // Import the Google Cloud client library
 const {BigQuery} = require('@google-cloud/bigquery');
 const bigquery = new BigQuery();
-
 const functions = require('@google-cloud/functions-framework');
+
+var sanitizer = require("string-sanitizer");
 
 /**
  * HTTP Cloud Function that returns BigQuery query results
@@ -13,9 +14,10 @@ const functions = require('@google-cloud/functions-framework');
  */
 functions.http('chronicleSilentEntities', async (req, res) => {
   // Define parameters
-  const sec_late = (req.query.sec_late || 600);
-  const limit_count = (req.query.limit_count || 100 );
-  const chronicle_tla = (req.query.chronicle_tla || 'none' );
+  const sec_late = (sanitizer.sanitize(req.query.sec_late) || 600);
+  const limit_count = (sanitizer.sanitize(req.query.limit_count) || 100 );
+  const chronicle_tla = (sanitizer.sanitize(req.query.chronicle_tla) || 'none' );
+
   if(chronicle_tla=='none')
      res.status(500).send(`Error 'chronicle_tla' http parameter not specified`);
 
